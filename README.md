@@ -1,16 +1,20 @@
-# React + Vite
+# 🧪 Lab Hub (Legacy)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The original React-based dashboard for the Laboratory Microservice Ecosystem. This version serves as a historical reference and a secondary monitor for the active services.
 
-Currently, two official plugins are available:
+## 🚀 Key Features
+- **Real-time Monitoring**: Integrated with `lab-monitor-service` to show live service status.
+- **Roadmap Tabs**: Visualization of achieved milestones and future ambitions.
+- **Infrastructure Overview**: Quick access to tech stack and cloud provider details.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Technology Stack
+- **Framework**: React + Vite
+- **Styling**: Standard CSS
+- **Deployment**: Vercel (Primary) / Cloudflare (Backup)
+- **Monitoring**: Express + Node.js backend
 
-## React Compiler
+## 📡 Ecosistema
+Este Hub ahora incluye referencias al nuevo **[Lab Hub Next.js](https://github.com/SvarogMyl/lab-hub-nextjs)** y a la **[Holo Template](https://github.com/SvarogMyl/lab-template-holo)**.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+Built by **Svarog** at the **Lab Hub**.

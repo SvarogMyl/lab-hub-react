@@ -119,8 +119,9 @@ function App() {
             <div className="infra-card">
               <h3>Cloud Providers</h3>
               <ul>
+                <li><strong>Cloudflare:</strong> Hosting principal de Frontends (Edge Runtime).</li>
                 <li><strong>Render:</strong> Hosting de Backends (Java, Node, Go).</li>
-                <li><strong>Vercel:</strong> Despliegue de Frontends React/NextJS.</li>
+                <li><strong>Vercel:</strong> Despliegue secundario de Frontends.</li>
                 <li><strong>Supabase:</strong> Base de Datos Relacional Gestionada.</li>
               </ul>
             </div>

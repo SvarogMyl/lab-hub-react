@@ -27,8 +27,23 @@ function App() {
 
   const projects = [
     {
-      title: "Lab Frontend",
-      description: "Catálogo de medicamentos y dashboard de gestión de ítems con estética premium y UX optimizada.",
+      title: "Lab Hub (Next.js)",
+      description: "Nueva versión del portal central con diseño Holo y alto rendimiento. Desplegado en Cloudflare.",
+      tech: ["Next.js 15", "Cloudflare", "TypeScript"],
+      githubUrl: "https://github.com/SvarogMyl/lab-hub-nextjs",
+      liveUrl: "https://lab-hub-nextjs.yannickvalderasm.workers.dev/",
+      status: 'UP'
+    },
+    {
+      title: "Holo Template",
+      description: "Plantilla reutilizable con sistema de diseño premium, i18n y componentes de investigación.",
+      tech: ["Next.js", "CSS Tokens", "OSS"],
+      githubUrl: "https://github.com/SvarogMyl/lab-template-holo",
+      status: 'UP'
+    },
+    {
+      title: "Lab Frontend (Legacy)",
+      description: "Versión inicial del catálogo de medicamentos y dashboard de gestión.",
       tech: ["Next.js", "Vercel", "React"],
       githubUrl: "https://github.com/SvarogMyl/lab-frontend-nextjs",
       liveUrl: "https://lab-frontend-nextjs.vercel.app/",
@@ -60,7 +75,7 @@ function App() {
     },
     {
       title: "Auth Service (Go)",
-      description: "Próximamente: Microservicio de alta disponibilidad para gestión de identidad y permisos.",
+      description: "Microservicio de alta disponibilidad para gestión de identidad y permisos.",
       tech: ["Go", "Gin", "Redis"],
       status: 'PENDING'
     }
@@ -163,8 +178,8 @@ function App() {
                 <div className="timeline-item active">
                   <div className="time">NOW</div>
                   <div className="content">
-                    <h3>Performance & Hub</h3>
-                    <p>Migración de servicios críticos a Go y creación del Portal Centralizado (Lab Hub).</p>
+                    <h3>Holo Hub & Next.js</h3>
+                    <p>Implementación del Holo Design System, migración a Next.js y despliegue en Cloudflare Edge.</p>
                   </div>
                 </div>
               </>

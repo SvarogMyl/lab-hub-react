@@ -4,82 +4,58 @@ import './App.css';
 
 function App() {
   const [statuses, setStatuses] = useState([]);
+  const [dbProjects, setDbProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('history');
 
+  // API Configuration
+  const MONITOR_API = 'https://lab-monitor-service.onrender.com/api/status';
+  const PROJECTS_API = 'https://lab-core-node.onrender.com/projects';
+
   useEffect(() => {
-    const fetchStatus = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch('https://lab-monitor-service.onrender.com/api/status');
-        const data = await response.json();
-        setStatuses(data);
+        // Fetch Statuses and Projects in parallel
+        const [statusRes, projectsRes] = await Promise.all([
+          fetch(MONITOR_API),
+          fetch(PROJECTS_API)
+        ]);
+
+        const statusData = await statusRes.json();
+        const projectsData = await projectsRes.json();
+
+        setStatuses(statusData);
+        setDbProjects(projectsData);
       } catch (error) {
-        console.error('Error fetching monitor status:', error);
+        console.error('Error fetching ecosystem data:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchStatus();
-    const interval = setInterval(fetchStatus, 30000);
+    fetchData();
+    const interval = setInterval(fetchData, 30000); // Sync every 30s
     return () => clearInterval(interval);
   }, []);
 
-  const projects = [
-    {
-      title: "Lab Hub (Next.js)",
-      description: "Nueva versión del portal central con diseño Holo y alto rendimiento. Desplegado en Cloudflare.",
-      tech: ["Next.js 15", "Cloudflare", "TypeScript"],
-      githubUrl: "https://github.com/SvarogMyl/lab-hub-nextjs",
-      liveUrl: "https://lab-hub-nextjs.yannickvalderasm.workers.dev/",
-      status: 'UP'
-    },
-    {
-      title: "Holo Template",
-      description: "Plantilla reutilizable con sistema de diseño premium, i18n y componentes de investigación.",
-      tech: ["Next.js", "CSS Tokens", "OSS"],
-      githubUrl: "https://github.com/SvarogMyl/lab-template-holo",
-      status: 'UP'
-    },
-    {
-      title: "Lab Frontend (Legacy)",
-      description: "Versión inicial del catálogo de medicamentos y dashboard de gestión.",
-      tech: ["Next.js", "Vercel", "React"],
-      githubUrl: "https://github.com/SvarogMyl/lab-frontend-nextjs",
-      liveUrl: "https://lab-frontend-nextjs.vercel.app/",
-      status: statuses.find(s => s.name.includes('Frontend'))?.status || 'UNKNOWN'
-    },
-    {
-      title: "Backend Core",
-      description: "Servicio principal encargado de la gestión de ítems y catálogo. Conectado a Supabase y PostgreSQL.",
-      tech: ["Java", "Spring Boot", "PostgreSQL", "JWT"],
-      githubUrl: "https://github.com/SvarogMyl/lab-spring-postgres",
-      liveUrl: "https://lab-spring-postgres.onrender.com/health",
-      docsUrl: "https://lab-spring-postgres.onrender.com/swagger-ui/index.html",
-      status: statuses.find(s => s.name.includes('Backend'))?.status || 'UNKNOWN'
-    },
-    {
-      title: "Lab Monitor",
-      description: "Vigilante del ecosistema. Realiza health-checks periódicos y mantiene los servicios despiertos.",
-      tech: ["Node.js", "Express", "Docker", "GH Actions"],
-      githubUrl: "https://github.com/SvarogMyl/lab-monitor-service",
-      liveUrl: "https://lab-monitor-service.onrender.com/",
-      status: 'UP'
-    },
-    {
-      title: "Data Service",
-      description: "Pipeline automatizado que sincroniza datos desde Excel Maestro a JSON para el catálogo.",
-      tech: ["Python", "Pandas", "GitHub Actions"],
-      githubUrl: "https://github.com/SvarogMyl/lab-data-service",
-      status: 'UP'
-    },
-    {
-      title: "Auth Service (Go)",
-      description: "Microservicio de alta disponibilidad para gestión de identidad y permisos.",
-      tech: ["Go", "Gin", "Redis"],
-      status: 'PENDING'
-    }
-  ];
+  // Map DB projects to the UI structure and merge with monitor status
+  const projects = dbProjects.map(p => {
+    // Find status from monitor based on live_url or title
+    const monitorInfo = statuses.find(s => 
+      s.url === p.live_url || 
+      s.name.toLowerCase().includes(p.title.toLowerCase())
+    );
+
+    return {
+      title: p.title,
+      description: p.description_es,
+      tech: p.tech_stack || [],
+      githubUrl: p.repo_url,
+      liveUrl: p.live_url,
+      docsUrl: p.docs_url,
+      status: p.status === 'ARCHIVED' ? 'ARCHIVED' : (monitorInfo ? monitorInfo.status : 'UNKNOWN')
+    };
+  });
 
   return (
     <div className="app-container">
@@ -104,11 +80,15 @@ function App() {
       <section id="projects" className="section">
         <div className="container">
           <h2 className="section-title">Ecosistema Actual</h2>
-          <div className="project-grid">
-            {projects.map((p, i) => (
-              <ProjectCard key={i} {...p} />
-            ))}
-          </div>
+          {loading && projects.length === 0 ? (
+            <div className="loading">Cargando ecosistema...</div>
+          ) : (
+            <div className="project-grid">
+              {projects.map((p, i) => (
+                <ProjectCard key={i} {...p} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

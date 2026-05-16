@@ -243,3 +243,36 @@
   .infra-grid { grid-template-columns: 1fr; }
   .nav-links { display: none; }
 }
+
+/* Grouping Styles */
+.category-group {
+  margin-bottom: 60px;
+}
+
+.category-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: #00f2ff;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  opacity: 0.8;
+}
+
+.category-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 242, 255, 0.3), transparent);
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-secondary);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 2px;
+}

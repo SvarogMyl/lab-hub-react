@@ -15,7 +15,6 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch Statuses and Projects in parallel
         const [statusRes, projectsRes] = await Promise.all([
           fetch(MONITOR_API),
           fetch(PROJECTS_API)
@@ -34,13 +33,12 @@ function App() {
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 30000); // Sync every 30s
+    const interval = setInterval(fetchData, 30000);
     return () => clearInterval(interval);
   }, []);
 
-  // Map DB projects to the UI structure and merge with monitor status
-  const projects = dbProjects.map(p => {
-    // Find status from monitor based on live_url or title
+  // Map and Sort
+  const processedProjects = dbProjects.map(p => {
     const monitorInfo = statuses.find(s => 
       s.url === p.live_url || 
       s.name.toLowerCase().includes(p.title.toLowerCase())
@@ -53,9 +51,17 @@ function App() {
       githubUrl: p.repo_url,
       liveUrl: p.live_url,
       docsUrl: p.docs_url,
+      category: p.category || 'OTHER',
       status: p.status === 'ARCHIVED' ? 'ARCHIVED' : (monitorInfo ? monitorInfo.status : 'UNKNOWN')
     };
   });
+
+  // Grouping logic
+  const categories = [...new Set(processedProjects.map(p => p.category))].sort();
+  const groupedProjects = categories.map(cat => ({
+    name: cat,
+    projects: processedProjects.filter(p => p.category === cat)
+  }));
 
   return (
     <div className="app-container">
@@ -80,12 +86,20 @@ function App() {
       <section id="projects" className="section">
         <div className="container">
           <h2 className="section-title">Ecosistema Actual</h2>
-          {loading && projects.length === 0 ? (
+          
+          {loading && dbProjects.length === 0 ? (
             <div className="loading">Cargando ecosistema...</div>
           ) : (
-            <div className="project-grid">
-              {projects.map((p, i) => (
-                <ProjectCard key={i} {...p} />
+            <div className="categories-container">
+              {groupedProjects.map((group, idx) => (
+                <div key={idx} className="category-group">
+                  <h3 className="category-label">{group.name}</h3>
+                  <div className="project-grid">
+                    {group.projects.map((p, i) => (
+                      <ProjectCard key={i} {...p} />
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           )}

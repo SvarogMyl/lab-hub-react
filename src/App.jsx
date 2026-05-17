@@ -52,6 +52,7 @@ function App() {
       liveUrl: p.live_url,
       docsUrl: p.docs_url,
       category: p.category || 'OTHER',
+      hosting: p.hosting || 'None',
       status: p.status === 'ARCHIVED' ? 'ARCHIVED' : (monitorInfo ? monitorInfo.status : 'UNKNOWN')
     };
   });

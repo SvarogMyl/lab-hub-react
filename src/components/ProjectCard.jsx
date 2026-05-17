@@ -1,7 +1,7 @@
 import React from 'react';
 import './ProjectCard.css';
 
-const ProjectCard = ({ title, description, tech, status, githubUrl, liveUrl, docsUrl }) => {
+const ProjectCard = ({ title, description, tech, status, githubUrl, liveUrl, docsUrl, hosting }) => {
   const getStatusColor = (s) => {
     switch (s) {
       case 'UP': return 'var(--accent-green)';
@@ -15,11 +15,18 @@ const ProjectCard = ({ title, description, tech, status, githubUrl, liveUrl, doc
     <div className="project-card">
       <div className="card-header">
         <h3 className="project-title">{title}</h3>
-        {status === 'PENDING' ? (
-          <span className="status-badge pending">COMING SOON</span>
-        ) : (
-          <div className="status-dot" style={{ backgroundColor: getStatusColor(status) }}></div>
-        )}
+        <div className="header-status">
+          {hosting && hosting !== 'None' && (
+            <span className={`hosting-badge ${hosting.toLowerCase()}`}>{hosting}</span>
+          )}
+          {status === 'PENDING' ? (
+            <span className="status-badge pending">COMING SOON</span>
+          ) : status === 'ARCHIVED' ? (
+            <span className="status-badge archived">ARCHIVED</span>
+          ) : (
+            <div className="status-dot" style={{ backgroundColor: getStatusColor(status) }}></div>
+          )}
+        </div>
       </div>
       <p className="project-desc">{description}</p>
       <div className="tech-stack">

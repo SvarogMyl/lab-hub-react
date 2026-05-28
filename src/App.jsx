@@ -26,7 +26,16 @@ function App() {
         setStatuses(statusData);
         setDbProjects(projectsData);
       } catch (error) {
-        console.error('Error fetching ecosystem data:', error);
+        console.error('Error fetching ecosystem data, using fallback...', error);
+        try {
+          const fallbackRes = await fetch('/fallback_projects.json');
+          if (fallbackRes.ok) {
+            const fallbackData = await fallbackRes.json();
+            setDbProjects(fallbackData);
+          }
+        } catch (fbErr) {
+          console.error('Error fetching fallback data', fbErr);
+        }
       } finally {
         setLoading(false);
       }

@@ -9,8 +9,8 @@ function App() {
   const [activeTab, setActiveTab] = useState('history');
 
   // API Configuration
-  const MONITOR_API = 'https://lab-monitor-service.onrender.com/api/status';
-  const PROJECTS_API = 'https://lab-core-node.onrender.com/projects';
+  const MONITOR_API = 'https://monitor.165.1.125.187.nip.io/api/status';
+  const PROJECTS_API = 'https://api.165.1.125.187.nip.io/projects';
 
   useEffect(() => {
     const fetchData = async () => {

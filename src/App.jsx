@@ -23,7 +23,11 @@ function App() {
         const statusData = await statusRes.json();
         const projectsData = await projectsRes.json();
 
-        setStatuses(statusData);
+        setStatuses(Array.isArray(statusData) ? statusData : []);
+
+        // Si la API devuelve error (500, etc.), activar fallback
+        if (!projectsRes.ok || !Array.isArray(projectsData)) throw new Error('API no disponible');
+
         setDbProjects(projectsData);
       } catch (error) {
         console.error('Error fetching ecosystem data, using fallback...', error);

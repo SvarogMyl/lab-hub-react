@@ -49,7 +49,7 @@
     "tech_stack": ["Node.js", "Docker", "Oracle Cloud"],
     "status": "LIVE",
     "repo_url": "https://github.com/SvarogMyl/lab-monitor-service",
-    "live_url": "https://monitor.165.1.125.187.nip.io/api/status",
+    "live_url": "https://monitor.165.1.125.187.nip.io/",
     "docs_url": "",
     "category": "INFRASTRUCTURE",
     "hosting": "Oracle Cloud",

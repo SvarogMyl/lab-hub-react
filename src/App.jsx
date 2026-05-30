@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ProjectCard from './components/ProjectCard';
 import './App.css';
 
@@ -127,10 +127,9 @@ function App() {
             <div className="infra-card">
               <h3>Cloud Providers</h3>
               <ul>
+                <li><strong>Oracle Cloud:</strong> Backends + PostgreSQL (ARM64, Always Free).</li>
                 <li><strong>Cloudflare:</strong> Hosting principal de Frontends (Edge Runtime).</li>
-                <li><strong>Render:</strong> Hosting de Backends (Java, Node, Go).</li>
                 <li><strong>Vercel:</strong> Despliegue secundario de Frontends.</li>
-                <li><strong>Supabase:</strong> Base de Datos Relacional Gestionada.</li>
               </ul>
             </div>
             <div className="infra-card">
@@ -142,6 +141,7 @@ function App() {
                 <span>Python 3.10</span>
                 <span>PostgreSQL</span>
                 <span>Docker</span>
+                <span>Traefik</span>
               </div>
             </div>
           </div>

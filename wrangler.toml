@@ -1,2 +1,7 @@
 name = "lab-hub-react"
 pages_build_output_dir = "dist"
+
+[env.production]
+routes = [
+  { pattern = "hub-react.svasoft.cl", custom_domain = true }
+]

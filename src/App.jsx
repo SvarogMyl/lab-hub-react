@@ -9,8 +9,8 @@ function App() {
   const [activeTab, setActiveTab] = useState('history');
 
   // API Configuration
-  const MONITOR_API = 'https://monitor.165.1.125.187.nip.io/api/status';
-  const PROJECTS_API = 'https://api.165.1.125.187.nip.io/projects';
+  const MONITOR_API = 'https://monitor.svasoft.cl/api/status';
+  const PROJECTS_API = 'https://api.svasoft.cl/projects';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -129,7 +129,7 @@ function App() {
               <ul>
                 <li><strong>Oracle Cloud:</strong> Backends + PostgreSQL (ARM64, Always Free).</li>
                 <li><strong>Cloudflare:</strong> Hosting principal de Frontends (Edge Runtime).</li>
-                <li><strong>Vercel:</strong> Despliegue secundario de Frontends.</li>
+                <li><strong>Cloudflare Pages:</strong> Hosting secundario de Frontends estáticos.</li>
               </ul>
             </div>
             <div className="infra-card">
